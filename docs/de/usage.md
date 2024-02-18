@@ -1,14 +1,14 @@
-[Projekt-Homepage](https://peter88213.github.io/nv_progress) > Gebrauchsanleitung
+[Projekt-Homepage](https://github.com/peter88213/nv_progress) > Gebrauchsanleitung
 
 --- 
 
-Ein [noveltree](https://peter88213.github.io/noveltree/)-Plugin providing a daily progress log viewer. 
+Ein [noveltree](https://github.com/peter88213/noveltree/)-Plugin providing a daily progress log viewer. 
 
 ---
 
 # Installation
 
-Wenn [noveltree](https://peter88213.github.io/noveltree/) installiert ist, installiert das Setup-Skript automatisch das*nv_progress*-Plugin im *noveltree* Plugin-Verzeichnis.
+Wenn [noveltree](https://github.com/peter88213/noveltree/) installiert ist, installiert das Setup-Skript automatisch das*nv_progress*-Plugin im *noveltree* Plugin-Verzeichnis.
 
 Das Plugin hängt einen **Täglicher Schreibfortschritt**-Eintrag an das *noveltree* **Extras**-Menü an. 
 

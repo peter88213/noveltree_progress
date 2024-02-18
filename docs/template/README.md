@@ -1,10 +1,10 @@
 # nv_progress
 
-The [noveltree](https://peter88213.github.io/noveltree/) Python program helps authors organize novels.  
+The [noveltree](https://github.com/peter88213/noveltree/) Python program helps authors organize novels.  
 
 *nv_progress* is a plugin providing a daily progress log viewer. 
 
-![Screenshot](Screenshots/screen01.png)
+![Screenshot](docs/Screenshots/screen01.png)
 
 ## Features
 
@@ -12,7 +12,7 @@ The [noveltree](https://peter88213.github.io/noveltree/) Python program helps au
 
 ## Requirements
 
-- [noveltree](https://peter88213.github.io/noveltree/) version 1.0+
+- [noveltree](https://github.com/peter88213/noveltree/) version 1.8+
 
 ## Download and install
 
@@ -23,11 +23,11 @@ The [noveltree](https://peter88213.github.io/noveltree/) Python program helps au
 
 ---
 
-[Changelog](changelog)
+[Changelog](docs/changelog.md)
 
 ## Usage
 
-See the [instructions for use](usage)
+See the [instructions for use](docs/usage.md)
 
 ## License
 
