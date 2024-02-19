@@ -1,4 +1,10 @@
-# nv_progress
+[![Download the latest release](docs/img/download-button.png)](https://github.com/peter88213/nv_progress/raw/main/dist/nv_progress_v1.1.0.zip)
+[![Changelog](docs/img/changelog-button.png)](docs/changelog.md)
+[![News](docs/img/news-button.png)](https://github.com/peter88213/noveltree/discussions/1)
+[![Online help](docs/img/help-button.png)](https://peter88213.github.io/nvhelp-en/nv_progress/)
+
+
+# ![W](icons/wLogo32.png) nv_progress
 
 The [noveltree](https://github.com/peter88213/noveltree/) Python program helps authors organize novels.  
 
