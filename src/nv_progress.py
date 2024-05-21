@@ -17,7 +17,6 @@ GNU General Public License for more details.
 """
 from pathlib import Path
 
-from novxlib.config.configuration import Configuration
 from novxlib.ui.set_icon_tk import set_icon
 from nvprogresslib.nvprogress_globals import _
 from nvprogresslib.progress_viewer import ProgressViewer
@@ -69,7 +68,10 @@ class Plugin:
         except:
             configDir = '.'
         self.iniFile = f'{configDir}/progress.ini'
-        self.configuration = Configuration(SETTINGS, OPTIONS)
+        self.configuration = self._mdl.nvService.make_configuration(
+            settings=SETTINGS,
+            options=OPTIONS
+            )
         self.configuration.read(self.iniFile)
         self.kwargs = {}
         self.kwargs.update(self.configuration.settings)
