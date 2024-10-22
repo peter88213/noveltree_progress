@@ -31,6 +31,8 @@ class Plugin(PluginBase):
     URL = 'https://github.com/peter88213/nv_progress'
 
     FEATURE = _('Daily progress log')
+    INI_FILENAME = 'progress.ini'
+    INI_FILEPATH = '.novx/config'
     SETTINGS = dict(
         window_geometry='510x440',
         date_width=100,
@@ -75,10 +77,10 @@ class Plugin(PluginBase):
         #--- Load configuration.
         try:
             homeDir = str(Path.home()).replace('\\', '/')
-            configDir = f'{homeDir}/.novx/config'
+            configDir = f'{homeDir}/{self.INI_FILEPATH}'
         except:
             configDir = '.'
-        self.iniFile = f'{configDir}/progress.ini'
+        self.iniFile = f'{configDir}/{self.INI_FILENAME}'
         self.configuration = self._mdl.nvService.make_configuration(
             settings=self.SETTINGS,
             options=self.OPTIONS
