@@ -129,6 +129,6 @@ class Plugin(PluginBase):
                 return
 
         self._progress_viewer = ProgressViewer(self, self._mdl)
-        self._progress_viewer.title(f'{self._mdl.novel.title} - {self.FEATURE} plugin v@release')
+        self._progress_viewer.title(f'{self._mdl.novel.title} - {self.FEATURE}')
         set_icon(self._progress_viewer, icon='wLogo32', default=False)
 
