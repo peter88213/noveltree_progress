@@ -20,6 +20,7 @@ from pathlib import Path
 from apptk.view.set_icon_tk import set_icon
 from nvlib.plugin.plugin_base import PluginBase
 from nvprogresslib.nvprogress_globals import _
+from nvprogresslib.nvprogress_globals import open_help
 from nvprogresslib.progress_viewer import ProgressViewer
 
 
@@ -89,6 +90,9 @@ class Plugin(PluginBase):
         self.kwargs = {}
         self.kwargs.update(self.configuration.settings)
         self.kwargs.update(self.configuration.options)
+
+        # Add an entry to the Help menu.
+        self._ui.helpMenu.add_command(label=_('Progress viewer Online help'), command=open_help)
 
         # Create an entry in the Tools menu.
         self._ui.toolsMenu.add_command(label=self.FEATURE, command=self._start_viewer)
