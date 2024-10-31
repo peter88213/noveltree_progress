@@ -5,6 +5,18 @@
 ## Changelog
 
 
+### Version 4.3.0
+
+- Auto-updating the word count at real time.
+
+Refactor for better maintainability:
+
+- Make the ProgressViewer a ViewComponentBase subclass and register it as a view for refreshing.
+
+Compatibility: novelibre 4.3 API
+Based on novxlib 4.8.0
+Based on apptk 2.2.0
+
 ### Version 4.2.9
 
 - Provide localized help link.
