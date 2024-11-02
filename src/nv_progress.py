@@ -17,7 +17,7 @@ GNU General Public License for more details.
 """
 from pathlib import Path
 
-from apptk.view.set_icon_tk import set_icon
+from mvclib.view.set_icon_tk import set_icon
 from nvlib.plugin.plugin_base import PluginBase
 from nvprogresslib.nvprogress_globals import _
 from nvprogresslib.nvprogress_globals import open_help

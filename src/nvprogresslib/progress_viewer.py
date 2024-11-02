@@ -7,10 +7,10 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 from datetime import date
 from tkinter import ttk
 
-from apptk.view.view_component_base import ViewComponentBase
+from mvclib.view.view_component_base import ViewComponentBase
 from nvprogresslib.nvprogress_globals import _
-from nvprogresslib.platform.platform_settings import PLATFORM
 from nvprogresslib.platform.platform_settings import KEYS
+from nvprogresslib.platform.platform_settings import PLATFORM
 import tkinter as tk
 
 
@@ -20,7 +20,7 @@ class ProgressViewer(ViewComponentBase, tk.Toplevel):
         ViewComponentBase.__init__(self, model, view, controller)
         tk.Toplevel.__init__(self)
 
-        self._ui.register_view(self)
+        self._ui.register_client(self)
         self._manager = manager
 
         self.geometry(self._manager.kwargs['window_geometry'])
@@ -59,13 +59,13 @@ class ProgressViewer(ViewComponentBase, tk.Toplevel):
         self.tree.tag_configure('positive', foreground='black')
         self.tree.tag_configure('negative', foreground='red')
         self.isOpen = True
-        self.refresh()
+        self._build_tree()
 
         # "Close" button.
         ttk.Button(self, text=_('Close'), command=self.on_quit).pack(side='right', padx=5, pady=5)
 
-    def refresh(self):
-        self.reset_tree()
+    def _build_tree(self):
+        self._reset_tree()
         wcLog = {}
 
         # Copy the read-in word count log.
@@ -117,7 +117,7 @@ class ProgressViewer(ViewComponentBase, tk.Toplevel):
             self.tree.insert('', startIndex, iid=wc, values=columns, tags=nodeTags, open=True)
 
     def on_quit(self, event=None):
-        self._ui.unregister_view(self)
+        self._ui.unregister_client(self)
         self._manager.kwargs['window_geometry'] = self.winfo_geometry()
         self._manager.kwargs['date_width'] = self.tree.column('date', 'width')
         self._manager.kwargs['wordcount_width'] = self.tree.column('wordCount', 'width')
@@ -127,7 +127,10 @@ class ProgressViewer(ViewComponentBase, tk.Toplevel):
         self.destroy()
         self.isOpen = False
 
-    def reset_tree(self):
+    def refresh(self):
+        self._build_tree()
+
+    def _reset_tree(self):
         """Clear the displayed tree."""
         for child in self.tree.get_children(''):
             self.tree.delete(child)
