@@ -58,7 +58,7 @@ class Plugin(PluginBase):
         """
         self._ui.toolsMenu.entryconfig(self.FEATURE, state='normal')
 
-    def install(self, model, view, controller, prefs=None):
+    def install(self, model, view, controller):
         """Add a submenu to the 'Tools' menu.
         
         Positional arguments:
