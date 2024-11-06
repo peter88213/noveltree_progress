@@ -21,7 +21,7 @@ class ProgressViewer(SubController, Observer, tk.Toplevel):
         SubController.__init__(self, model, view, controller)
         tk.Toplevel.__init__(self)
 
-        self._ui.register_client(self)
+        self._mdl.add_observer(self)
         self._manager = manager
 
         self.geometry(self._manager.kwargs['window_geometry'])
@@ -118,7 +118,7 @@ class ProgressViewer(SubController, Observer, tk.Toplevel):
             self.tree.insert('', startIndex, iid=wc, values=columns, tags=nodeTags, open=True)
 
     def on_quit(self, event=None):
-        self._ui.unregister_client(self)
+        self._mdl.delete_observer(self)
         self._manager.kwargs['window_geometry'] = self.winfo_geometry()
         self._manager.kwargs['date_width'] = self.tree.column('date', 'width')
         self._manager.kwargs['wordcount_width'] = self.tree.column('wordCount', 'width')

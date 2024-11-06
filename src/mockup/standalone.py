@@ -46,10 +46,10 @@ class ProgressTk(MainTk):
         super().enable_menu()
         self.plugin.enable_menu()
 
-    def register_client(self, view):
+    def add_observer(self, view):
         pass
 
-    def unregister_client(self, view):
+    def delete_observer(self, view):
         pass
 
 
