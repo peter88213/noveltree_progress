@@ -7,17 +7,18 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 from datetime import date
 from tkinter import ttk
 
-from mvclib.view.view_component_base import ViewComponentBase
+from mvclib.controller.sub_controller import SubController
+from mvclib.view.observer import Observer
 from nvprogresslib.nvprogress_globals import _
 from nvprogresslib.platform.platform_settings import KEYS
 from nvprogresslib.platform.platform_settings import PLATFORM
 import tkinter as tk
 
 
-class ProgressViewer(ViewComponentBase, tk.Toplevel):
+class ProgressViewer(SubController, Observer, tk.Toplevel):
 
     def __init__(self, model, view, controller, manager, **kwargs):
-        ViewComponentBase.__init__(self, model, view, controller)
+        SubController.__init__(self, model, view, controller)
         tk.Toplevel.__init__(self)
 
         self._ui.register_client(self)
