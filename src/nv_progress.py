@@ -27,7 +27,7 @@ from nvprogresslib.progress_viewer import ProgressViewer
 class Plugin(PluginBase):
     """novelibre daily progress log viewer plugin class."""
     VERSION = '@release'
-    API_VERSION = '4.3'
+    API_VERSION = '5.0'
     DESCRIPTION = 'A daily progress log viewer'
     URL = 'https://github.com/peter88213/nv_progress'
 
