@@ -3,9 +3,9 @@
 For further information see https://github.com/peter88213/nv_progress
 License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
-from nvlib.configuration.configuration import Configuration
-from novxlib.ui.main_tk import MainTk
+from mvclib.user_interface.main_tk import MainTk
 from nv_progress import Plugin
+from nvlib.configuration.configuration import Configuration
 from nvlib.model.nv_work_file import NvWorkFile
 from nvprogresslib.nvprogress_globals import _
 import tkinter as tk
