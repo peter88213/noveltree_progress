@@ -21,7 +21,7 @@ from mvclib.view.set_icon_tk import set_icon
 from nvlib.plugin.plugin_base import PluginBase
 from nvprogresslib.nvprogress_globals import _
 from nvprogresslib.nvprogress_globals import open_help
-from nvprogresslib.progress_viewer import ProgressViewer
+from nvprogresslib.progress_window import ProgressWindow
 
 
 class Plugin(PluginBase):
@@ -131,7 +131,7 @@ class Plugin(PluginBase):
                 self._progress_viewer.refresh()
                 return
 
-        self._progress_viewer = ProgressViewer(self._mdl, self._ui, self._ctrl, self)
+        self._progress_viewer = ProgressWindow(self._mdl, self._ui, self._ctrl, self)
         self._progress_viewer.title(f'{self._mdl.novel.title} - {self.FEATURE}')
         set_icon(self._progress_viewer, icon='wLogo32', default=False)
 

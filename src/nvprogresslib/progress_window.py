@@ -15,11 +15,14 @@ from nvprogresslib.platform.platform_settings import PLATFORM
 import tkinter as tk
 
 
-class ProgressViewer(SubController, Observer, tk.Toplevel):
+class ProgressWindow(tk.Toplevel, Observer, SubController):
 
     def __init__(self, model, view, controller, manager, **kwargs):
-        SubController.__init__(self, model, view, controller)
-        tk.Toplevel.__init__(self)
+        super().__init__()
+
+        self._mdl = model
+        self._ui = view
+        self._ctrl = controller
 
         self._mdl.add_observer(self)
         self._manager = manager
