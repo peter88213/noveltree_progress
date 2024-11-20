@@ -18,7 +18,7 @@ GNU General Public License for more details.
 from pathlib import Path
 
 from mvclib.view.set_icon_tk import set_icon
-from nvlib.plugin.plugin_base import PluginBase
+from nvlib.controller.plugin.plugin_base import PluginBase
 from nvprogresslib.nvprogress_globals import _
 from nvprogresslib.nvprogress_globals import open_help
 from nvprogresslib.progress_window import ProgressWindow
