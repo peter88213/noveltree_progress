@@ -15,7 +15,7 @@ APPLICATION = 'View daily progress log'
 
 class NvServiceMock:
 
-    def make_configuration(self, **kwargs):
+    def new_configuration(self, **kwargs):
         return Configuration(**kwargs)
 
 
