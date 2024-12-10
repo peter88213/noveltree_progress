@@ -7,7 +7,7 @@ from mvclib.user_interface.main_tk import MainTk
 from nv_progress import Plugin
 from nvlib.configuration.configuration import Configuration
 from nvlib.model.nv_work_file import NvWorkFile
-from nvprogresslib.nvprogress_globals import _
+from nvprogress.nvprogress_locale import _
 import tkinter as tk
 
 APPLICATION = 'View daily progress log'

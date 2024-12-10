@@ -16,12 +16,12 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 """
 from pathlib import Path
+import webbrowser
 
 from mvclib.view.set_icon_tk import set_icon
 from nvlib.controller.plugin.plugin_base import PluginBase
-from nvprogresslib.nvprogress_globals import _
-from nvprogresslib.nvprogress_globals import open_help
-from nvprogresslib.progress_window import ProgressWindow
+from nvprogress.nvprogress_locale import _
+from nvprogress.progress_view import ProgressView
 
 
 class Plugin(PluginBase):
@@ -32,6 +32,8 @@ class Plugin(PluginBase):
     URL = 'https://github.com/peter88213/nv_progress'
 
     FEATURE = _('Daily progress log')
+    HELP_URL = f'{_("https://peter88213.github.io/nvhelp-en")}/nv_progress'
+
     INI_FILENAME = 'progress.ini'
     INI_FILEPATH = '.novx/config'
     SETTINGS = dict(
@@ -86,15 +88,15 @@ class Plugin(PluginBase):
             options=self.OPTIONS
             )
         self.configuration.read(self.iniFile)
-        self.kwargs = {}
-        self.kwargs.update(self.configuration.settings)
-        self.kwargs.update(self.configuration.options)
+        self.prefs = {}
+        self.prefs.update(self.configuration.settings)
+        self.prefs.update(self.configuration.options)
 
         # Add an entry to the Help menu.
-        self._ui.helpMenu.add_command(label=_('Progress viewer Online help'), command=open_help)
+        self._ui.helpMenu.add_command(label=_('Progress viewer Online help'), command=self.open_help_page)
 
         # Create an entry in the Tools menu.
-        self._ui.toolsMenu.add_command(label=self.FEATURE, command=self._start_viewer)
+        self._ui.toolsMenu.add_command(label=self.FEATURE, command=self.start_viewer)
         self._ui.toolsMenu.entryconfig(self.FEATURE, state='disabled')
 
     def on_close(self):
@@ -114,24 +116,26 @@ class Plugin(PluginBase):
                 self._progress_viewer.on_quit()
 
         #--- Save configuration
-        for keyword in self.kwargs:
+        for keyword in self.prefs:
             if keyword in self.configuration.options:
-                self.configuration.options[keyword] = self.kwargs[keyword]
+                self.configuration.options[keyword] = self.prefs[keyword]
             elif keyword in self.configuration.settings:
-                self.configuration.settings[keyword] = self.kwargs[keyword]
+                self.configuration.settings[keyword] = self.prefs[keyword]
         self.configuration.write(self.iniFile)
 
-    def _start_viewer(self):
+    def open_help_page(self, event=None):
+        webbrowser.open(self.HELP_URL)
+
+    def start_viewer(self):
         if self._progress_viewer:
             if self._progress_viewer.isOpen:
                 if self._progress_viewer.state() == 'iconic':
                     self._progress_viewer.state('normal')
                 self._progress_viewer.lift()
                 self._progress_viewer.focus()
-                self._progress_viewer.refresh()
                 return
 
-        self._progress_viewer = ProgressWindow(self._mdl, self._ui, self._ctrl, self)
+        self._progress_viewer = ProgressView(self._mdl, self._ui, self._ctrl, self.prefs)
         self._progress_viewer.title(f'{self._mdl.novel.title} - {self.FEATURE}')
         set_icon(self._progress_viewer, icon='wLogo32', default=False)
 

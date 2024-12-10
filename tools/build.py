@@ -12,13 +12,13 @@ import sys
 sys.path.insert(0, f'{os.getcwd()}/../../novelibre/tools')
 from package_builder import PackageBuilder
 
-VERSION = '5.0.1'
+VERSION = '5.0.2'
 
 
 class PluginBuilder(PackageBuilder):
 
     PRJ_NAME = 'nv_progress'
-    LOCAL_LIB = 'nvprogresslib'
+    LOCAL_LIB = 'nvprogress'
     GERMAN_TRANSLATION = True
 
     def __init__(self, version):
