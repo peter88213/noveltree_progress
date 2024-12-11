@@ -6,11 +6,11 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 from tkinter import ttk
 
-from nvprogress.progress_view_ctrl import ProgressViewCtrl
 from mvclib.view.observer import Observer
 from nvprogress.nvprogress_locale import _
 from nvprogress.platform.platform_settings import KEYS
 from nvprogress.platform.platform_settings import PLATFORM
+from nvprogress.progress_view_ctrl import ProgressViewCtrl
 import tkinter as tk
 
 
@@ -18,9 +18,7 @@ class ProgressView(tk.Toplevel, Observer, ProgressViewCtrl):
 
     def __init__(self, model, view, controller, prefs):
         tk.Toplevel.__init__(self)
-        self.initialize_controller(model, view, controller, prefs)
-
-        self._mdl.add_observer(self)
+        self.prefs = prefs
 
         self.geometry(self.prefs['window_geometry'])
         self.lift()
@@ -61,8 +59,25 @@ class ProgressView(tk.Toplevel, Observer, ProgressViewCtrl):
         # "Close" button.
         ttk.Button(self, text=_('Close'), command=self.on_quit).pack(side='right', padx=5, pady=5)
 
-        self.build_tree()
+        self.initialize_controller(model, view, controller, prefs)
+        self._mdl.add_observer(self)
+
+    def on_quit(self, event=None):
+        self._mdl.delete_observer(self)
+        self.prefs['window_geometry'] = self.winfo_geometry()
+        self.prefs['date_width'] = self.tree.column('date', 'width')
+        self.prefs['wordcount_width'] = self.tree.column('wordCount', 'width')
+        self.prefs['wordcount_delta_width'] = self.tree.column('wordCountDelta', 'width')
+        self.prefs['totalcount_width'] = self.tree.column('totalWordCount', 'width')
+        self.prefs['totalcount_delta_width'] = self.tree.column('totalWordCountDelta', 'width')
+        self.destroy()
+        self.isOpen = False
 
     def refresh(self):
         self.build_tree()
+
+    def reset_tree(self):
+        """Clear the displayed tree."""
+        for child in self.tree.get_children(''):
+            self.tree.delete(child)
 

@@ -13,8 +13,8 @@ class ProgressViewCtrl(SubController):
 
     def initialize_controller(self, model, view, controller, prefs):
         super().initialize_controller(model, view, controller)
-        self.prefs = prefs
         self.isOpen = True
+        self.build_tree()
 
     def build_tree(self):
         self.reset_tree()
@@ -67,20 +67,4 @@ class ProgressViewCtrl(SubController):
             startIndex = '0'
             # reverse order
             self.tree.insert('', startIndex, iid=wc, values=columns, tags=nodeTags, open=True)
-
-    def on_quit(self, event=None):
-        self._mdl.delete_observer(self)
-        self.prefs['window_geometry'] = self.winfo_geometry()
-        self.prefs['date_width'] = self.tree.column('date', 'width')
-        self.prefs['wordcount_width'] = self.tree.column('wordCount', 'width')
-        self.prefs['wordcount_delta_width'] = self.tree.column('wordCountDelta', 'width')
-        self.prefs['totalcount_width'] = self.tree.column('totalWordCount', 'width')
-        self.prefs['totalcount_delta_width'] = self.tree.column('totalWordCountDelta', 'width')
-        self.destroy()
-        self.isOpen = False
-
-    def reset_tree(self):
-        """Clear the displayed tree."""
-        for child in self.tree.get_children(''):
-            self.tree.delete(child)
 

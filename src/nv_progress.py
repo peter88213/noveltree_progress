@@ -74,7 +74,7 @@ class Plugin(PluginBase):
         Extends the superclass method.
         """
         super().install(model, view, controller)
-        self._progress_viewer = None
+        self.progressView = None
 
         #--- Load configuration.
         try:
@@ -111,9 +111,9 @@ class Plugin(PluginBase):
         
         Overrides the superclass method.
         """
-        if self._progress_viewer:
-            if self._progress_viewer.isOpen:
-                self._progress_viewer.on_quit()
+        if self.progressView is not None:
+            if self.progressView.isOpen:
+                self.progressView.on_quit()
 
         #--- Save configuration
         for keyword in self.prefs:
@@ -127,15 +127,15 @@ class Plugin(PluginBase):
         webbrowser.open(self.HELP_URL)
 
     def start_viewer(self):
-        if self._progress_viewer:
-            if self._progress_viewer.isOpen:
-                if self._progress_viewer.state() == 'iconic':
-                    self._progress_viewer.state('normal')
-                self._progress_viewer.lift()
-                self._progress_viewer.focus()
+        if self.progressView:
+            if self.progressView.isOpen:
+                if self.progressView.state() == 'iconic':
+                    self.progressView.state('normal')
+                self.progressView.lift()
+                self.progressView.focus()
                 return
 
-        self._progress_viewer = ProgressView(self._mdl, self._ui, self._ctrl, self.prefs)
-        self._progress_viewer.title(f'{self._mdl.novel.title} - {self.FEATURE}')
-        set_icon(self._progress_viewer, icon='wLogo32', default=False)
+        self.progressView = ProgressView(self._mdl, self._ui, self._ctrl, self.prefs)
+        self.progressView.title(f'{self._mdl.novel.title} - {self.FEATURE}')
+        set_icon(self.progressView, icon='wLogo32', default=False)
 
