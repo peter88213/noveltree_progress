@@ -15,13 +15,11 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 """
-from pathlib import Path
 import webbrowser
 
-from mvclib.view.set_icon_tk import set_icon
 from nvlib.controller.plugin.plugin_base import PluginBase
 from nvprogress.nvprogress_locale import _
-from nvprogress.progress_view import ProgressView
+from nvprogress.progress_service import ProgressService
 
 
 class Plugin(PluginBase):
@@ -30,21 +28,9 @@ class Plugin(PluginBase):
     API_VERSION = '5.0'
     DESCRIPTION = 'A daily progress log viewer'
     URL = 'https://github.com/peter88213/nv_progress'
-
-    FEATURE = _('Daily progress log')
     HELP_URL = f'{_("https://peter88213.github.io/nvhelp-en")}/nv_progress'
 
-    INI_FILENAME = 'progress.ini'
-    INI_FILEPATH = '.novx/config'
-    SETTINGS = dict(
-        window_geometry='510x440',
-        date_width=100,
-        wordcount_width=100,
-        wordcount_delta_width=100,
-        totalcount_width=100,
-        totalcount_delta_width=100,
-    )
-    OPTIONS = {}
+    FEATURE = _('Daily progress log')
 
     def disable_menu(self):
         """Disable menu entries when no project is open.
@@ -74,23 +60,7 @@ class Plugin(PluginBase):
         Extends the superclass method.
         """
         super().install(model, view, controller)
-        self.progressView = None
-
-        #--- Load configuration.
-        try:
-            homeDir = str(Path.home()).replace('\\', '/')
-            configDir = f'{homeDir}/{self.INI_FILEPATH}'
-        except:
-            configDir = '.'
-        self.iniFile = f'{configDir}/{self.INI_FILENAME}'
-        self.configuration = self._mdl.nvService.new_configuration(
-            settings=self.SETTINGS,
-            options=self.OPTIONS
-            )
-        self.configuration.read(self.iniFile)
-        self.prefs = {}
-        self.prefs.update(self.configuration.settings)
-        self.prefs.update(self.configuration.options)
+        self.progressService = ProgressService(model, view, controller)
 
         # Add an entry to the Help menu.
         self._ui.helpMenu.add_command(label=_('Progress viewer Online help'), command=self.open_help_page)
@@ -104,38 +74,18 @@ class Plugin(PluginBase):
         
         Overrides the superclass method.
         """
-        self.on_quit()
+        self.progressService.on_close()
 
     def on_quit(self):
         """Write back the configuration file.
         
         Overrides the superclass method.
         """
-        if self.progressView is not None:
-            if self.progressView.isOpen:
-                self.progressView.on_quit()
-
-        #--- Save configuration
-        for keyword in self.prefs:
-            if keyword in self.configuration.options:
-                self.configuration.options[keyword] = self.prefs[keyword]
-            elif keyword in self.configuration.settings:
-                self.configuration.settings[keyword] = self.prefs[keyword]
-        self.configuration.write(self.iniFile)
+        self.progressService.on_quit()
 
     def open_help_page(self, event=None):
         webbrowser.open(self.HELP_URL)
 
     def start_viewer(self):
-        if self.progressView:
-            if self.progressView.isOpen:
-                if self.progressView.state() == 'iconic':
-                    self.progressView.state('normal')
-                self.progressView.lift()
-                self.progressView.focus()
-                return
-
-        self.progressView = ProgressView(self._mdl, self._ui, self._ctrl, self.prefs)
-        self.progressView.title(f'{self._mdl.novel.title} - {self.FEATURE}')
-        set_icon(self.progressView, icon='wLogo32', default=False)
+        self.progressService.start_viewer(self.FEATURE)
 
