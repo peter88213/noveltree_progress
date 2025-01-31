@@ -6,7 +6,7 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 from datetime import date
 
-from mvclib.controller.sub_controller import SubController
+from nvlib.controller.sub_controller import SubController
 
 
 class ProgressViewCtrl(SubController):

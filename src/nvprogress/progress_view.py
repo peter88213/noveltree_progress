@@ -6,7 +6,7 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 from tkinter import ttk
 
-from mvclib.view.observer import Observer
+from nvlib.gui.observer import Observer
 from nvprogress.nvprogress_locale import _
 from nvprogress.platform.platform_settings import KEYS
 from nvprogress.platform.platform_settings import PLATFORM
