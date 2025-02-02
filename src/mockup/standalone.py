@@ -5,8 +5,8 @@ License: GNU GPLv3 (https://www.gnu.org/licenses/gpl-3.0.en.html)
 """
 from nv_progress import Plugin
 from nvlib.configuration.configuration import Configuration
-from nvlib.gui.user_interface.simple_gui import SimpleGui
 from nvlib.model.nv_work_file import NvWorkFile
+from nvlib.user_interface.simple_gui import SimpleGui
 from nvprogress.nvprogress_locale import _
 import tkinter as tk
 

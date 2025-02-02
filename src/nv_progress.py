@@ -17,8 +17,8 @@ GNU General Public License for more details.
 """
 import webbrowser
 
-from nvlib.controller.plugin.plugin_base import PluginBase
 from nvprogress.nvprogress_locale import _
+from nvlib.controller.plugin.plugin_base import PluginBase
 from nvprogress.progress_service import ProgressService
 
 
